@@ -16,17 +16,22 @@ import { useNavigate } from "react-router-dom";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  HomeOutlined,
+  StarOutlined,
   //   UploadOutlined,
   //   UserOutlined,
   //   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme, MenuProps } from "antd";
+import ListMusic from "../components/ListMusic";
+import './style/index.css'
 
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [page, setPage] = useState<string>("1");
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -34,16 +39,17 @@ const DefaultLayout: React.FC = () => {
   //     console.log('1')
   //     navigate("/list");
   //   };
-  let page = "";
+
   const onClick: MenuProps["onClick"] = (e) => {
-    page = e.key
-    console.log(page);
+    setPage(e.key);
     //  check page==='1' => call api ALL LIST
     //  check page==='2' => call api LIST TOP 10
     navigate("/list");
   };
   return (
-    <Layout>
+    <Layout  style={{
+      padding: 24,
+      minHeight: 500,}}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
@@ -54,12 +60,12 @@ const DefaultLayout: React.FC = () => {
           items={[
             {
               key: "1",
-              //   icon: <UserOutlined />,
-              label: "List nhac",
+              icon: <HomeOutlined />,
+              label: "Home",
             },
             {
               key: "2",
-              //   icon: <VideoCameraOutlined />,
+              icon: <StarOutlined />,
               label: "BXH 10",
             },
             // {
@@ -87,11 +93,12 @@ const DefaultLayout: React.FC = () => {
           style={{
             margin: "24px 16px",
             padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
+            minHeight: 480,
+            // background: "#243366",
+            // color: 'white'
           }}
         >
-          <Outlet />
+          <ListMusic page={page} />
         </Content>
       </Layout>
     </Layout>
