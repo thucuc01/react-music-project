@@ -2,7 +2,7 @@ import { CustomerServiceOutlined } from "@ant-design/icons";
 import "./style/list-music.css";
 import { Table } from "antd";
 import AudioPlayer from "react-audio-player";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import ReactAudioPlayer from "react-audio-player";
 interface Song {
   id: number;

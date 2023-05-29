@@ -61,7 +61,7 @@ function DefaultLayout() {
     <Layout className="layout">
       <Header style={{ display: "flex", alignItems: "center" }}>
         <div className="header">
-          <div style={{ color: "white", marginLeft: "10px" }}> Test</div>
+          <div style={{ color: "white", margin: "10px" }}> <img style={{height: "100px"}} src="logo.jpg"/></div>
           <div>
             <Avatar
               style={{ backgroundColor: "#87d068" }}
