@@ -1,3 +1,9 @@
-Header{
-    /* background-image: url('https://img.freepik.com/free-vector/glowing-shiny-musical-notes-background-design_1017-32856.jpg') !important; */
+.header{
+
+    display: flex ;
+
+    justify-content: space-between;
+
+    width: 100%;
+
 }

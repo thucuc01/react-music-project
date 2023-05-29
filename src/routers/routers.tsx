@@ -26,9 +26,26 @@ const navRoutes: IRoute[] = [
 
     component: <ListMusic />,
   },
-
   {
-    path: "/detail",
+    path: "/top-100-vn",
+
+    title: "List",
+
+    // icon: <UserOutlined />,
+
+    component: <ListMusic />,
+  },
+  {
+    path: "/top-100-us",
+
+    title: "List",
+
+    // icon: <UserOutlined />,
+
+    component: <ListMusic />,
+  },
+  {
+    path: "/detail/:id",
 
     title: "Detail",
 

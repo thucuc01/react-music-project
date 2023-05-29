@@ -1,9 +1,30 @@
 
-.ant-table-tbody{
-    background-color: #1f213f;
-    color: aliceblue;
-    /* border-color: #243366 !important; */
+.list-music{
+
+    padding: 15px;
+
 }
+
+.ant-table-thead tr th{
+
+    color: #FFF !important;
+
+    background: #1F213F !important;
+
+}
+
+.ant-table-tbody{
+
+    /* background-color: #1f213f; */
+
+    /* color: aliceblue; */
+
+    /* border-color: #243366 !important; */
+
+}
+
 .ant-table-cell{
-    border:none !important
+
+    /* border:none !important */
+
 }
