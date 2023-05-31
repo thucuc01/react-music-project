@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { Col, Input, Row } from "antd";
+import { Button, Col, Input, Row } from "antd";
 
 import { InboxOutlined } from "@ant-design/icons";
 
@@ -57,28 +57,32 @@ function CreateMusic() {
 
   return (
     <div className="create-page">
+        <h2> Them bai hat :</h2>
       <Row className="row-1">
-      <Col className="col-1">
-        Ten bai hat: <Input/>
-        Ca si: <Input/>
-        The loai: <Input/>
+        <Col className="col-1">
+          Ten bai hat: <Input />
+          Ca si: <Input />
+          The loai: <Input />
         </Col>
         <Col className="col-1">
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
+          <Dragger {...props}>
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
 
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to upload
+            </p>
 
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibited from
-            uploading company data or other banned files.
-          </p>
-        </Dragger>
+            <p className="ant-upload-hint">
+              Support for a single or bulk upload. Strictly prohibited from
+              uploading company data or other banned files.
+            </p>
+          </Dragger>
         </Col>
+      </Row>
+      <Row className="row-2">
+        <Button className="btn-save" type="primary">Save</Button>
       </Row>
 
       <Row>

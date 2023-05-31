@@ -13,3 +13,11 @@
 
   /* display: block; */
 }
+.row-2 {
+    justify-content: right;
+    padding: 20px;
+}
+.btn-save{
+    width: 150px;
+    height: 50px;
+}
