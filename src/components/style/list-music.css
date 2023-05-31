@@ -1,0 +1,17 @@
+.list-music{
+    padding: 15px;
+}
+
+.ant-table-thead tr th{
+
+    color: #FFF !important;
+
+    background: #1F213F !important;
+
+}
+.title-search{
+    margin-bottom: 15px;
+}
+.ant-btn-primary{
+    background: #1F213F ;
+}

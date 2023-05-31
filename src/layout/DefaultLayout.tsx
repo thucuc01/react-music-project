@@ -1,101 +1,188 @@
-import { Outlet } from "react-router-dom";
+import { AppstoreOutlined } from "@ant-design/icons";
+// import { Switch } from "antd";
+import { Outlet, useNavigate } from "react-router-dom";
 
-// function DefaultLayout() {
-//   return (
-//     <div>
-//       <a href="/list">List</a> <br />
-//       <a href="/list">Top 100</a>
-//       <Outlet />
-//     </div>
-//   );
-// }
+import { UserOutlined } from "@ant-design/icons";
 
-// export default DefaultLayout;
+import { Avatar, Layout, Menu, Dropdown, Button } from "antd";
+
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  //   UploadOutlined,
-  //   UserOutlined,
-  //   VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu, Button, theme, MenuProps } from "antd";
 
-const { Header, Sider, Content } = Layout;
+import { HomeOutlined } from "@ant-design/icons";
 
-const DefaultLayout: React.FC = () => {
+import type { MenuProps, MenuTheme } from "antd";
+
+import "./style/index.css";
+
+const { Header, Content, Footer, Sider } = Layout;
+
+type MenuItem = Required<MenuProps>["items"][number];
+
+function getItem(
+  label: React.ReactNode,
+
+  key?: React.Key | null,
+
+  icon?: React.ReactNode,
+
+  children?: MenuItem[],
+
+  type?: "group"
+): MenuItem {
+  return {
+    key,
+
+    icon,
+
+    children,
+
+    label,
+
+    type,
+  } as MenuItem;
+}
+
+const items: MenuItem[] = [
+  getItem("Trang chủ", "", <HomeOutlined />),
+
+  getItem("Top 10", "top-100", <AppstoreOutlined />, [
+    getItem("TOP 10 BXH", "top-10-all"),
+
+    getItem("Việt Nam", "top-10-vn"),
+
+    getItem("Âu Mỹ", "top-10-us"),
+
+    // getItem("K-pop", "sub3", null, [
+
+    //   getItem("Option 7", "7"),
+
+    //   getItem("Option 8", "8"),
+
+    // ]),
+  ]),
+
+  //   getItem("Ca sĩ", "artis", <SettingOutlined />, [
+
+  //     getItem("Ca sĩ 1", "9"),
+
+  //     getItem("Ca sĩ 2", "10"),
+
+  //   ]),
+];
+
+function DefaultLayout() {
+  // const [page, setPage] = useState<string>("sub1");
+
+  const [theme] = useState<MenuTheme>("dark");
+
+  //   const [current, setCurrent] = useState("sub1");
+
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-  //   const onClick= () => {
-  //     console.log('1')
-  //     navigate("/list");
-  //   };
-  let page = "";
+
   const onClick: MenuProps["onClick"] = (e) => {
-    page = e.key
-    console.log(page);
-    //  check page==='1' => call api ALL LIST
-    //  check page==='2' => call api LIST TOP 10
-    navigate("/list");
+    console.log("click ", e);
+
+    navigate(e.key);
   };
+
+  const clickLogout = () => {
+    localStorage.setItem("isLogin", "0");
+
+    navigate("/login");
+  };
+
+  const clickInfo = () => {
+    navigate("/info");
+  };
+
+  const menu = (
+    <Menu>
+      <Menu.Item onClick={clickInfo}>Info</Menu.Item>
+
+      <Menu.Item onClick={clickLogout}>Logout</Menu.Item>
+    </Menu>
+  );
+
+  const isLogin = localStorage.getItem("isLogin");
+
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
-        <Menu
-          onClick={onClick}
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              //   icon: <UserOutlined />,
-              label: "List nhac",
-            },
-            {
-              key: "2",
-              //   icon: <VideoCameraOutlined />,
-              label: "BXH 10",
-            },
-            // {
-            //   key: '3',
-            //   icon: <UploadOutlined />,
-            //   label: 'nav 3',
-            // },
-          ]}
-        />
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
+    <Layout className="layout">
+      <Header style={{ display: "flex", alignItems: "center" }}>
+        <div className="header">
+          <div
             style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
+              color: "white",
+
+              margin: "10px",
+
+              width: "calc(100% - 100px)",
             }}
-          />
-        </Header>
-        <Content
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-          }}
-        >
-          <Outlet />
-        </Content>
-      </Layout>
+          >
+            <img
+              style={{ height: "100%" }}
+              src="/logo.jpg"
+              alt="loading logo ....."
+            />
+          </div>
+
+          <div>
+            {isLogin === "0" ? (
+              <Button ghost onClick={clickLogout}>
+                LOGIN
+              </Button>
+            ) : (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Avatar
+                  style={{ backgroundColor: "#87d068" }}
+                  icon={<UserOutlined />}
+                />
+
+                <Dropdown overlay={menu}>
+                  <div>
+                    <a className="ant-dropdown-link">Admin</a>
+                  </div>
+                </Dropdown>
+              </div>
+            )}
+          </div>
+        </div>
+      </Header>
+
+      <Content style={{ padding: "0 0px" }}>
+        <Layout>
+          <Sider>
+            <Menu
+              theme={theme}
+              onClick={onClick}
+              style={{ minHeight: "100vh" }}
+              // defaultOpenKeys={["sub1"]}
+
+              // selectedKeys={[current]}
+
+              mode="inline"
+              items={items}
+            />
+          </Sider>
+
+          <Content>
+            <Outlet />
+          </Content>
+        </Layout>
+      </Content>
+
+      <Footer
+        style={{
+          textAlign: "center",
+
+          backgroundColor: "#001529",
+
+          color: "white",
+        }}
+      >
+        Music Project ©2023
+      </Footer>
     </Layout>
   );
-};
+}
 
 export default DefaultLayout;

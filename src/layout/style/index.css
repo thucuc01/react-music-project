@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-height: 100%;
+}
+
+.ant-dropdown-link {
+  margin-left: 15px;
+}
