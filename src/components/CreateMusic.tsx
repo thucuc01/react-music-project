@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { Col, Row } from "antd";
+import { Col, Input, Row } from "antd";
 
 import { InboxOutlined } from "@ant-design/icons";
 
@@ -44,7 +44,7 @@ function CreateMusic() {
       if (status === "done") {
         message.success(`${info.file.name} file uploaded successfully.`);
 
-        navigate("/");
+        // navigate("/");
       } else if (status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -58,6 +58,12 @@ function CreateMusic() {
   return (
     <div className="create-page">
       <Row className="row-1">
+      <Col className="col-1">
+        Ten bai hat: <Input/>
+        Ca si: <Input/>
+        The loai: <Input/>
+        </Col>
+        <Col className="col-1">
         <Dragger {...props}>
           <p className="ant-upload-drag-icon">
             <InboxOutlined />
@@ -72,6 +78,7 @@ function CreateMusic() {
             uploading company data or other banned files.
           </p>
         </Dragger>
+        </Col>
       </Row>
 
       <Row>
