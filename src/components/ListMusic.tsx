@@ -1,9 +1,14 @@
-import { CustomerServiceOutlined } from "@ant-design/icons";
 import "./style/list-music.css";
-import { Table } from "antd";
+import { CustomerServiceOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Input } from "antd";
 import AudioPlayer from "react-audio-player";
 import { useNavigate } from "react-router-dom";
-// import ReactAudioPlayer from "react-audio-player";
+import { dataListMusic } from "./data";
+import { Col, Row } from "antd";
+import { Button, Space } from "antd";
+
+const { Search } = Input;
+
 interface Song {
   id: number;
   title: string;
@@ -12,19 +17,27 @@ interface Song {
   key: number;
   view: number;
   img: string;
+  category: string;
 }
 interface SongTableProps {
   songs: Song[];
 }
 
+const onSearch = (value: string) => console.log(value);
 function SongTable({ songs }: SongTableProps) {
   const navigate = useNavigate();
-  const columns = [
+  const onClick = (key: any) => {
+    navigate("/detail/" + key);
+  };
+  const onClickDelete = (key: number) => {
+    console.log(key, "key delete");
+  };
+  let columns = [
     {
       title: "Tên bài hát ",
       dataIndex: "img",
       key: "img",
-      colSpan:2,
+      colSpan: 2,
       render: (img: string) => (
         <img
           alt="loading......"
@@ -36,11 +49,21 @@ function SongTable({ songs }: SongTableProps) {
     {
       title: "",
       dataIndex: "title",
-      colSpan:0,
+      colSpan: 0,
       key: "title",
-      render:(_: any, record: Song) => (
-        <><a href={`detail/` + record.key}>{record.title }</a></>
-      )
+      render: (_: any, record: Song) => (
+        <>
+          {/* // <Routes ><Route path="detail"><Route path=":record.key"/>{record.title }</Route></Routes> */}
+
+          {/* <button onClick={onClick(record.key)}>{record.title}</button> */}
+
+          <Space>
+            <Button type="text" onClick={() => onClick(record.key)}>
+              <span style={{ color: "blue" }}>{record.title}</span>
+            </Button>
+          </Space>
+        </>
+      ),
     },
     { title: "Ca sĩ", dataIndex: "artist", key: "artist" },
     {
@@ -64,127 +87,71 @@ function SongTable({ songs }: SongTableProps) {
       ),
     },
   ];
+  if (localStorage.getItem("isLogin") === "1") {
+    columns = [
+      ...columns,
+      {
+        title: "Action",
+        dataIndex: "key",
+        key: "key",
+        render: (key: number) => (
+          <Button type="primary" onClick={() => onClickDelete(key)}>
+            <DeleteOutlined /> Delete
+          </Button>
+        ),
+      },
+    ];
+  }
+
   return <Table dataSource={songs} columns={columns} bordered />;
 }
 function ListMusic(props: any) {
-  const listMusic = [
-    {
-      id: 1,
-      title: "See Tình",
-      artist: "Hoàng Thùy Linh",
-      url: "see-tinh.mp3",
-      key: 1,
-      view: 564,
-      img: "https://images2.thanhnien.vn/Uploaded/congthang/2022_03_02/anh-1-1930.jpg",
-    },
-    {
-      id: 2,
-      title: "Song 2",
-      artist: "Hòa Minzy",
-      url: "thi-mau.mp3",
-      key: 2,
-      view: 543,
-      img: "https://ss-images.saostar.vn/pc/1678091600290/saostar-udgx6krx21ke6met.jpg",
-    },
-    {
-      id: 3,
-      title: "Song 3",
-      artist: "Jenny - BlackPink",
-      url: "solo-Jennie.mp3",
-      key: 3,
-      view: 8723,
-      img: "https://admin.vov.gov.vn/UploadFolder/KhoTin/Images/UploadFolder/VOVVN/Images/sites/default/files/styles/large/public/2020-09/eijrzntu8aa-lv-1600819839899628200672-2_0.jpg"
-    },
-    {
-      id: 4,
-      title: "Song 4",
-      artist: "BlackPink",
-      url: "boombayah.mp3",
-      key: 4,
-      view: 857,
-      img:"https://static2.yan.vn/YanNews/2167221/201806/black-pink-xinh-dep-long-lon-trong-hinh-anh-nha-hang-cua-mv-moi-13be2748.jpg"
-    },
-    {
-      id: 5,
-      title: "Song 5",
-      artist: "Lisa - BlackPink",
-      url: "see-tinh.mp3",
-      key: 5,
-      view: 1287,
-      img:"https://file.tinnhac.com/resize/600x-/2019/03/25/20190325093647-e63d.jpg"
-    },
-    {
-      id: 6,
-      title: "Song 6",
-      artist: "Artist 3",
-      url: "see-tinh.mp3",
-      key: 6,
-      view: 53487,
-    },
-    {
-      id: 7,
-      title: "Song 7",
-      artist: "Artist 3",
-      url: "see-tinh.mp3",
-      key: 7,
-      view: 687,
-    },
-    {
-      id: 8,
-      title: "Song 8",
-      artist: "Artist 3",
-      url: "see-tinh.mp3",
-      key: 8,
-      view: 827,
-    },
-    {
-      id: 9,
-      title: "Song 9",
-      artist: "Artist 3",
-      url: "see-tinh.mp3",
-      key: 9,
-      view: 187,
-    },
-    {
-      id: 10,
-      title: "Song 10",
-      artist: "Artist 3",
-      url: "see-tinh.mp3",
-      key: 10,
-      view: 387,
-    },
-    {
-      id: 11,
-      title: "Song 11",
-      artist: "Artist 3",
-      url: "see-tinh.mp3",
-      key: 11,
-      view: 687,
-    },
-    {
-      id: 12,
-      title: "Song 12",
-      artist: "Artist 3",
-      url: "see-tinh.mp3",
-      key: 12,
-      view: 887,
-    },
-  ];
+  console.log(props);
+  const listMusic = JSON.parse(JSON.stringify(dataListMusic));
   let songs: any = [];
   switch (props.page) {
-    case "5":
-      const sortedList = listMusic.sort((a, b) => b.view - a.view);
+    case "top10-all":
+      console.log(1);
+      const sortedList = listMusic.sort((a: any, b: any) => b.view - a.view);
       songs = sortedList.slice(0, 10);
       break;
+    case "top10-us":
+      break;
+    case "top10-vn":
+      break;
     default:
-      songs = listMusic;
+      songs = dataListMusic;
   }
 
+  const navigate = useNavigate();
+  const onClickCreateSong = () => {
+    navigate("/create");
+  };
   return (
     <div className="list-music">
-      <h1>Play List</h1>
+      <Row className="title-search">
+        <Col flex={4}>
+          {localStorage.getItem("isLogin") === "1" && (
+            <div>
+              <Button type="primary" onClick={onClickCreateSong}>
+                Create Song
+              </Button>
+            </div>
+          )}
+        </Col>
+
+        <Col flex={1}>
+          <Search
+            placeholder="Tim kiem theo ten bai hat"
+            onSearch={onSearch}
+            enterButton
+          />
+        </Col>
+      </Row>
+
       <SongTable songs={songs} />
     </div>
   );
 }
+
 export default ListMusic;

@@ -3,6 +3,7 @@ import ListMusic from "../components/ListMusic";
 import DetailMusic from "../components/DetailMusic";
 import LoginPage from "../pages/LoginPage";
 import DefaultLayout from "../layout/DefaultLayout";
+import CreateMusic from "../components/CreateMusic";
 
 interface IRoute {
   path: string;
@@ -18,7 +19,7 @@ interface IRoute {
 
 const navRoutes: IRoute[] = [
   {
-    path: "/list",
+    path: "",
 
     title: "List",
 
@@ -26,24 +27,37 @@ const navRoutes: IRoute[] = [
 
     component: <ListMusic />,
   },
+
   {
-    path: "/top-100-vn",
+    path: "/top-10-all",
 
     title: "List",
 
     // icon: <UserOutlined />,
 
-    component: <ListMusic />,
+    component: <ListMusic page={"top10-all"} />,
   },
+
   {
-    path: "/top-100-us",
+    path: "/top-10-vn",
 
     title: "List",
 
     // icon: <UserOutlined />,
 
-    component: <ListMusic />,
+    component: <ListMusic page={"top10-vn"} />,
   },
+
+  {
+    path: "/top-10-us",
+
+    title: "List",
+
+    // icon: <UserOutlined />,
+
+    component: <ListMusic page={"top10-us"} />,
+  },
+
   {
     path: "/detail/:id",
 
@@ -52,6 +66,14 @@ const navRoutes: IRoute[] = [
     // icon: <UserOutlined />,
 
     component: <DetailMusic />,
+  },
+
+  {
+    path: "/create",
+
+    title: "Create",
+
+    component: <CreateMusic />,
   },
 ];
 
@@ -81,7 +103,7 @@ const navRouters = getRoutes(navRoutes);
 
 const browserRouters: RouteObject[] = [
   {
-    path: "",
+    path: "/login",
 
     element: <LoginPage />,
 

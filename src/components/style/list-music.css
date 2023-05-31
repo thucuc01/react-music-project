@@ -1,8 +1,5 @@
-
 .list-music{
-
     padding: 15px;
-
 }
 
 .ant-table-thead tr th{
@@ -12,19 +9,9 @@
     background: #1F213F !important;
 
 }
-
-.ant-table-tbody{
-
-    /* background-color: #1f213f; */
-
-    /* color: aliceblue; */
-
-    /* border-color: #243366 !important; */
-
+.title-search{
+    margin-bottom: 15px;
 }
-
-.ant-table-cell{
-
-    /* border:none !important */
-
+.ant-btn-primary{
+    background: #1F213F ;
 }
